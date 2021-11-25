@@ -16,9 +16,21 @@ const detailButtonStyles = css`
   }
 `;
 
+const newsletterButtonStyles = css`
+  align-self: flex-end;
+  border-radius: 2px;
+  padding: 1.2rem 4rem;
+  color: #ffffff;
+  background-color: #00a0ea;
+`;
+
 const getButtonStyles = (props) => {
   if (props.isDetail) {
     return detailButtonStyles;
+  }
+
+  if (props.newsletter) {
+    return newsletterButtonStyles;
   }
 };
 

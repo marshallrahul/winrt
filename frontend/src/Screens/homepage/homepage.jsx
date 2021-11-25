@@ -4,7 +4,7 @@ import CollectionOverview from "../../components/collection-overview/collection-
 import Details from "../../components/details/details.component";
 import Review from "../../components/review-section/review.component";
 import Newsletter from "../../components/newsletter/newsletter.component";
-// import { HomePageContainer } from "./HomePageElements";
+import Footer from "../../components/footer/footer.component";
 
 const HomePage = () => {
   return (
@@ -14,6 +14,7 @@ const HomePage = () => {
       <Details />
       <Review />
       <Newsletter />
+      <Footer />
     </>
   );
 };

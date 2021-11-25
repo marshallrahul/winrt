@@ -7,24 +7,27 @@ import {
   Title,
   Paragraph,
   FormInputs,
+  Container,
 } from "./newsletter.styles";
 
 const Newsletter = () => {
   return (
     <NewsletterContainer>
-      <div>
+      <Container>
         <Title>Newsletter</Title>
         <Paragraph>
           Resgister now with our newsletter and get the <br /> latest updates
           available
         </Paragraph>
-      </div>
+      </Container>
       <FormContainer onSubmit={null}>
         <FormInputs>
           <FormInput placeholder="Name" />
           <FormInput placeholder="Email" />
         </FormInputs>
-        <CustomButton type="submit">Send</CustomButton>
+        <CustomButton type="submit" newsletter>
+          Send
+        </CustomButton>
       </FormContainer>
     </NewsletterContainer>
   );

@@ -7,6 +7,11 @@ export const DetailsContainer = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #53c2f5;
+
+  @media only screen and (max-width: 600px) {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+  }
 `;
 
 export const ImgContainer = styled.div`
@@ -22,6 +27,15 @@ export const ImgContainer = styled.div`
 export const DetailBox = styled.div`
   background-color: #53c2f5;
   padding-left: 7.5rem;
+
+  @media only screen and (max-width: 600px) {
+    text-align: center;
+    padding: 0;
+  }
+
+  @media only screen and (max-width: 768px) and (min-width: 600px) {
+    padding-left: 4rem;
+  }
 `;
 
 export const PreText = styled.div`
@@ -31,17 +45,25 @@ export const PreText = styled.div`
   text-transform: uppercase;
   color: #007ad7;
   margin-left: 0.5rem;
+
+  @media only screen and (max-width: 768px) and (min-width: 600px) {
+    font-size: 1rem;
+  }
 `;
 
 export const Title = styled.h1`
   font-size: 4rem;
   font-weight: 800;
   color: #ffffff;
+
+  @media only screen and (max-width: 768px) and (min-width: 600px) {
+    font-size: 3.5rem;
+  }
 `;
 
 export const DescriptionText = styled.p`
   font-size: 1.3rem;
-  font-weight: 600;
+  font-weight: 400;
   color: #ffffff;
   padding-top: 1rem;
   margin-bottom: 3rem;

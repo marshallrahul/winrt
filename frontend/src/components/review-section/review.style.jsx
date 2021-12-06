@@ -5,6 +5,10 @@ export const ReviewContainer = styled.div`
   padding-bottom: 20rem;
   position: relative;
   overflow: hidden;
+
+  @media only screen and (max-width: 600px) {
+    padding: 2rem 6rem 15rem;
+  }
 `;
 
 export const Reviews = styled.div`
@@ -19,6 +23,10 @@ export const Title = styled.h1`
   font-weight: 700;
   text-align: center;
   margin: 5rem 0 1.5rem;
+
+  @media only screen and (max-width: 370px) {
+    font-size: 3.5rem;
+  }
 `;
 
 export const UnderLine = styled.hr`
@@ -33,6 +41,14 @@ export const Dots1 = styled.img`
   top: 17.6rem;
   left: 4.2rem;
   z-index: -1;
+
+  @media only screen and (max-width: 600px) {
+    left: 2.2rem;
+  }
+
+  @media only screen and (max-width: 370px) {
+    top: 22.6rem;
+  }
 `;
 
 export const Dots2 = styled.img`
@@ -40,6 +56,11 @@ export const Dots2 = styled.img`
   bottom: 12rem;
   right: -7.5rem;
   z-index: -1;
+
+  @media only screen and (max-width: 600px) {
+    bottom: 8rem;
+    right: -10.5rem;
+  }
 `;
 
 export const Vector = styled.img`
@@ -47,4 +68,8 @@ export const Vector = styled.img`
   bottom: -8rem;
   left: 0rem;
   z-index: -2;
+
+  @media only screen and (max-width: 600px) {
+    bottom: -2rem;
+  }
 `;

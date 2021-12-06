@@ -38,4 +38,5 @@ export const ReviewText = styled.p`
   font-weight: 700;
   line-height: 2.3rem;
   color: #4f4f4f;
+  padding-bottom: 1rem;
 `;

@@ -16,8 +16,7 @@ const Newsletter = () => {
       <Container>
         <Title>Newsletter</Title>
         <Paragraph>
-          Resgister now with our newsletter and get the <br /> latest updates
-          available
+          Resgister now with our newsletter and get the latest updates available
         </Paragraph>
       </Container>
       <FormContainer onSubmit={null}>

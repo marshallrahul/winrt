@@ -1,5 +1,4 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
 import CustomButton from "../custom-button/custom-button.component";
 import {
   Wrapper,
@@ -8,20 +7,16 @@ import {
   Title,
   SubTitle,
   IconContainer,
+  Icons,
 } from "./hero.style";
-import {
-  FacebookLogo,
-  TwitterLogo,
-  InstagramLogo,
-  TwitchLogo,
-} from "phosphor-react";
+
 import heroImage from "../../assets/hero-image.png";
 
 const Hero = () => {
   return (
     <Wrapper>
-      <Row className="mx-0">
-        <Col>
+      <div>
+        <div>
           <Content>
             <Title>
               Your dreame <br /> mountain bike
@@ -33,28 +28,38 @@ const Hero = () => {
             <CustomButton>Buy now</CustomButton>
           </Content>
           <IconContainer>
-            <FacebookLogo size={48} style={{ color: "#4267B2" }} />
-            <TwitterLogo size={48} style={{ color: "#1DA1F2" }} />
-            <InstagramLogo
-              size={48}
-              style={
-                {
-                  // background:
-                  //   "-webkit-linear-gradient(#FEDA77, #F58529, #DD2A78, #8134AF, #515BD4)",
-                  // WebkitBackgroundClip: "text",
-                  // WebkitTextFillColor: "transparent",
-                }
-              }
-            />
-            <TwitchLogo size={48} style={{ color: "#9147fe" }} />
+            <a href="https://icons8.com/icon/rjOvx0oPISOf/facebook">
+              <Icons
+                src="https://img.icons8.com/stickers/100/000000/facebook-new.png"
+                alt="facebook"
+              />
+            </a>
+            <a href="https://icons8.com/icon/Plswr633TJUP/instagram">
+              <Icons
+                src="https://img.icons8.com/stickers/48/000000/instagram-new--v2.png"
+                alt="instagram"
+              />
+            </a>
+            <a href="https://icons8.com/icon/dfe6xOTOt2vY/twitter">
+              <Icons
+                src="https://img.icons8.com/stickers/100/000000/twitter.png"
+                alt="twitter"
+              />
+            </a>
+            <a href="https://icons8.com/icon/18103/twitch">
+              <Icons
+                src="https://img.icons8.com/color/48/000000/twitch--v1.png"
+                alt="twitch"
+              />
+            </a>
           </IconContainer>
-        </Col>
-        <Col>
+        </div>
+        <div>
           <div>
             <HeroImage src={heroImage} alt="Bicycle" />
           </div>
-        </Col>
-      </Row>
+        </div>
+      </div>
     </Wrapper>
   );
 };

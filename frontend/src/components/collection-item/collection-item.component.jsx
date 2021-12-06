@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Rating from "../rating/rating.component";
 import {
   CardContainer,
@@ -10,19 +11,24 @@ import {
   UserBox,
 } from "./collection-item.style";
 
-const CollectionItem = ({ product }) => {
+const CollectionItem = ({ product, prodId }) => {
+  const navigate = useNavigate();
+
   return (
-    <CardContainer>
+    <CardContainer onClick={() => navigate(`/product/${prodId}`)}>
       <ProductImage src={product.image} alt={product.name} />
       <CardBody>
         <Box>
           <Rating value={product.rating} />
           <UserBox>
-            <i class="fa-regular fa-heart" style={{ fontSize: "2rem" }}></i>
+            <i className="fa-regular fa-heart" style={{ fontSize: "2rem" }}></i>
             <div
               style={{ borderLeft: "1px solid black", height: "2rem" }}
             ></div>
-            <i class="fa-solid fa-cart-plus" style={{ fontSize: "2rem" }}></i>
+            <i
+              className="fa-solid fa-cart-plus"
+              style={{ fontSize: "2rem" }}
+            ></i>
           </UserBox>
         </Box>
         <Title>{product.name}</Title>

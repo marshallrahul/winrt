@@ -7,6 +7,7 @@ import {
   Title,
   UnderLine,
   TextBox,
+  MoreLink,
 } from "./collection-overview.style";
 
 const CollectionOverview = () => {
@@ -18,9 +19,16 @@ const CollectionOverview = () => {
       </TextBox>
       <CollectionContainer>
         {products.map((product) => (
-          <CollectionItem key={product._id} product={product} />
+          <CollectionItem
+            key={product._id}
+            prodId={product._id}
+            product={product}
+          />
         ))}
       </CollectionContainer>
+      <MoreLink to="/collections">
+        <span>More</span> <i className="fa-solid fa-arrow-right"></i>
+      </MoreLink>
     </Wrapper>
   );
 };

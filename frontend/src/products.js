@@ -4,7 +4,7 @@ const products = [
     name: "Buddy Cycle",
     image: "/images/cycle-1.jpg",
     description:
-      "Mountain bicycle is a bicycle designed for off-road cycling. Mountain bikes are generally specialized for use on mountain trails, single track, fire roads, and other unpaved surfaces.",
+      "A mountain bike or mountain bicycle is a bicycle designed for off-road cycling. Mountain bikes share some similarities with other bicycles, but incorporate features designed to enhance durability and performance in rough terrain, which makes them heavy. These typically include a suspension fork.",
     price: 3000.0,
     countInStock: 10,
     rating: 4.5,
@@ -15,7 +15,7 @@ const products = [
     name: "Magic Cycle",
     image: "/images/cycle-2.png",
     description:
-      "Mountain bicycle is a bicycle designed for off-road cycling. Mountain bikes are generally specialized for use on mountain trails, single track, fire roads, and other unpaved surfaces.",
+      "A mountain bike or mountain bicycle is a bicycle designed for off-road cycling. Mountain bikes share some similarities with other bicycles, but incorporate features designed to enhance durability and performance in rough terrain, which makes them heavy. These typically include a suspension fork.",
     price: 5000.0,
     countInStock: 10,
     rating: 3.5,
@@ -26,7 +26,7 @@ const products = [
     name: "Bike & Run",
     image: "/images/cycle-3.jpg",
     description:
-      "Mountain bicycle is a bicycle designed for off-road cycling. Mountain bikes are generally specialized for use on mountain trails, single track, fire roads, and other unpaved surfaces.",
+      "A mountain bike or mountain bicycle is a bicycle designed for off-road cycling. Mountain bikes share some similarities with other bicycles, but incorporate features designed to enhance durability and performance in rough terrain, which makes them heavy. These typically include a suspension fork.",
     price: 3000.0,
     countInStock: 10,
     rating: 4.5,
@@ -37,7 +37,7 @@ const products = [
     name: "Happy Star",
     image: "/images/cycle-4.png",
     description:
-      "Mountain bicycle is a bicycle designed for off-road cycling. Mountain bikes are generally specialized for use on mountain trails, single track, fire roads, and other unpaved surfaces.",
+      "A mountain bike or mountain bicycle is a bicycle designed for off-road cycling. Mountain bikes share some similarities with other bicycles, but incorporate features designed to enhance durability and performance in rough terrain, which makes them heavy. These typically include a suspension fork.",
     price: 7000.0,
     countInStock: 10,
     rating: 2.5,
@@ -48,7 +48,7 @@ const products = [
     name: "Master Wheels",
     image: "/images/cycle-5.jpg",
     description:
-      "Mountain bicycle is a bicycle designed for off-road cycling. Mountain bikes are generally specialized for use on mountain trails, single track, fire roads, and other unpaved surfaces.",
+      "A mountain bike or mountain bicycle is a bicycle designed for off-road cycling. Mountain bikes share some similarities with other bicycles, but incorporate features designed to enhance durability and performance in rough terrain, which makes them heavy. These typically include a suspension fork.",
     price: 2000.0,
     countInStock: 10,
     rating: 4.5,
@@ -59,7 +59,7 @@ const products = [
     name: "Ridgeback",
     image: "/images/cycle-6.png",
     description:
-      "Mountain bicycle is a bicycle designed for off-road cycling. Mountain bikes are generally specialized for use on mountain trails, single track, fire roads, and other unpaved surfaces.",
+      "A mountain bike or mountain bicycle is a bicycle designed for off-road cycling. Mountain bikes share some similarities with other bicycles, but incorporate features designed to enhance durability and performance in rough terrain, which makes them heavy. These typically include a suspension fork.",
     price: 7000.0,
     countInStock: 10,
     rating: 5.0,

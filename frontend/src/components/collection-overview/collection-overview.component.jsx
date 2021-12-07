@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CollectionItem from "../collection-item/collection-item.component";
-import products from "../../products";
+import products1 from "../../products";
+import { listProducts } from "../../redux/product/product.action";
 import {
   CollectionContainer,
   Wrapper,
@@ -11,6 +13,17 @@ import {
 } from "./collection-overview.style";
 
 const CollectionOverview = () => {
+  const dispatch = useDispatch();
+
+  const productDetails = useSelector((state) => state.products);
+  const { loading, products, error } = productDetails;
+
+  useEffect(() => {
+    dispatch(listProducts());
+  }, [dispatch]);
+
+  console.log(productDetails);
+
   return (
     <Wrapper>
       <TextBox>
@@ -18,7 +31,7 @@ const CollectionOverview = () => {
         <UnderLine />
       </TextBox>
       <CollectionContainer>
-        {products.map((product) => (
+        {products1.map((product) => (
           <CollectionItem
             key={product._id}
             prodId={product._id}

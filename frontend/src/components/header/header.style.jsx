@@ -23,7 +23,7 @@ export const Logo = styled.h1`
   margin-bottom: 0;
 `;
 
-export const NavContainer = styled.ul`
+export const NavContainer = styled.div`
   font-size: 1.5rem;
   font-weight: 700;
   display: flex;
@@ -32,10 +32,29 @@ export const NavContainer = styled.ul`
   height: 100%;
   margin-bottom: 0;
 
+  & > * {
+    margin-bottom: 2rem;
+  }
+
+  .user__name {
+    display: none;
+
+    @media only screen and (max-width: 946px) {
+      display: block;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .nav__links {
+    @media only screen and (max-width: 946px) {
+      display: block;
+      margin-bottom: 2rem;
+    }
+  }
+
   @media only screen and (max-width: 946px) {
+    display: block;
     font-size: 2rem;
-    justify-content: space-evenly;
-    flex-direction: column;
     width: 100%;
     height: 50rem;
     position: absolute;
@@ -44,6 +63,7 @@ export const NavContainer = styled.ul`
     transition: all 0.3s ease-out;
     color: #ffffff;
     background-color: #58d5ffef;
+    padding-top: 2rem;
   }
 `;
 
@@ -51,6 +71,69 @@ export const NavLinks = styled(Link)`
   list-style: none;
   margin: 0 2rem;
   cursor: pointer;
+
+  @media only screen and (max-width: 946px) {
+    transition: all 0.2s ease;
+    &:hover {
+      text-decoration: none;
+      background-color: #58d5ff;
+    }
+  }
+`;
+
+export const DropdownSub = styled.div`
+  display: none;
+
+  @media only screen and (max-width: 946px) {
+    position: relative;
+    display: block;
+    width: 100%;
+    opacity: 0;
+    height: 0;
+    margin: 0 4rem;
+    overflow: hidden;
+    transition: all 0.2s linear;
+  }
+`;
+
+export const AdminCheckbox = styled.input`
+  &:checked ~ .section-dropdown {
+    opacity: 1;
+    height: 10rem;
+  }
+
+  &:checked ~ .nav__admin {
+    margin: 0 2rem;
+  }
+`;
+
+export const AdminContainer = styled.label`
+  display: none;
+
+  @media only screen and (max-width: 946px) {
+    display: block;
+    cursor: pointer;
+    margin: 0 2rem 2rem;
+    transition: all 0.2s ease;
+    &:hover {
+      text-decoration: none;
+      background-color: #58d5ff;
+    }
+  }
+`;
+
+export const LogoutContainer = styled.div`
+  margin: 0 2rem;
+  cursor: pointer;
+  display: none;
+
+  @media only screen and (max-width: 946px) {
+    display: block;
+    transition: all 0.2s ease;
+    &:hover {
+      background-color: #58d5ff;
+    }
+  }
 `;
 
 export const NavIconContainer = styled.ul`

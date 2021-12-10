@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const signInStyles = css`
+const inputStyles = css`
   width: 44rem;
   margin-bottom: 3rem;
 
@@ -14,8 +14,8 @@ const signInStyles = css`
 `;
 
 const getButtonStyles = (props) => {
-  if (props.signIn) {
-    return signInStyles;
+  if (props.input) {
+    return inputStyles;
   }
 };
 

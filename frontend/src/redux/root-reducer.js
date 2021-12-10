@@ -2,7 +2,11 @@ import { combineReducers } from "redux";
 // import { persistStore, persistReducer } from "redux-persist";
 // import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
-import productReducer from "./product/product.reducer";
+import {
+  productReducer,
+  productDetailsReducer,
+} from "./product/product.reducer";
+import { userRegisterReducer, userLoginReducer } from "./user/user.reducers";
 
 // const persistConfig = {
 //   key: "root",
@@ -11,6 +15,9 @@ import productReducer from "./product/product.reducer";
 
 const rootReducer = combineReducers({
   products: productReducer,
+  productDetails: productDetailsReducer,
+  userRegister: userRegisterReducer,
+  userLogin: userLoginReducer,
 });
 
 export default rootReducer;

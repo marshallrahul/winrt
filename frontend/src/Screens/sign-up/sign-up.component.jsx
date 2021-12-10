@@ -1,7 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import FormInput from "../../components/form-input/form-input.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
+import Message from "../../components/message/message.component";
+import Loader from "../../components/loader/loader.component";
+import { register } from "../../redux/user/user.action";
 import {
   SignInContainer,
   Title,
@@ -13,9 +17,49 @@ import {
   FormContainer,
   RegisterText,
   Social,
+  Icon,
 } from "./sign-up.style";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [hidden, setHidden] = useState(true);
+  const [userCredentials, setCredentials] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [message, setMessage] = useState("");
+
+  const { name, email, password, confirmPassword } = userCredentials;
+
+  const userRegister = useSelector((state) => state.userRegister);
+  const { error, userInfo, loading } = userRegister;
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [userInfo, navigate]);
+
+  console.log(userInfo);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setCredentials({ ...userCredentials, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (password !== confirmPassword) {
+      setMessage("Password do not match");
+    } else {
+      dispatch(register(userCredentials));
+    }
+  };
+
   return (
     <SignInContainer>
       <Illustration
@@ -23,24 +67,56 @@ const SignUp = () => {
         alt="Open Vault"
       />
       <FormContainer>
-        <Form onSubmit={null}>
+        <Form onSubmit={handleSubmit}>
+          {loading && <Loader />}
           <Title>Create Account</Title>
-          <FormInput type="text" placeholder="Name" signIn />
+          {message && <Message>{message}</Message>}
+          {error && <Message>{error}</Message>}
+          <FormInput
+            name="name"
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={handleChange}
+            input
+          />
           <div>
-            <FormInput type="email" placeholder="Email" signIn />
-            <i
-              className="fa-regular fa-user"
-              style={{ marginLeft: "-3rem", fontSize: "1.5rem" }}
-            ></i>
+            <FormInput
+              name="email"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={handleChange}
+              input
+            />
+            <Icon className="fa-regular fa-user" />
           </div>
           <div>
-            <FormInput type="password" placeholder="Password" signIn />
-            <i
-              className="fa-regular fa-eye-slash"
-              style={{ marginLeft: "-3rem", fontSize: "1.5rem" }}
-            ></i>
+            <FormInput
+              name="password"
+              type={hidden ? "password" : "text"}
+              placeholder="Password"
+              value={password}
+              onChange={handleChange}
+              input
+            />
+            <Icon
+              className={
+                hidden ? "fa-regular fa-eye-slash" : "fa-regular fa-eye"
+              }
+              onClick={() => {
+                setHidden(!hidden);
+              }}
+            />
           </div>
-          <FormInput type="password" placeholder="Confirm Password" signIn />
+          <FormInput
+            name="confirmPassword"
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={handleChange}
+            input
+          />
           <CustomButton type="submit" signIn>
             SIGNUP
           </CustomButton>

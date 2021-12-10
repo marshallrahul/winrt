@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import products from "../../products";
 import CustomButton from "../../components/custom-button/custom-button.component";
 import Rating from "../../components/rating/rating.component";
+import Loader from "../../components/loader/loader.component";
+import Message from "../../components/message/message.component";
+import { listProductDetails } from "../../redux/product/product.action";
 import {
   ProductContainer,
   ProductImage,
@@ -16,9 +19,20 @@ import {
 } from "./product.style";
 
 const Product = () => {
+  const dispatch = useDispatch();
   const params = useParams();
-  const product = products.filter((prod) => prod._id === params.id)[0];
 
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, product, error } = productDetails;
+
+  useEffect(() => {
+    dispatch(listProductDetails(params.id));
+  }, [dispatch, params]);
+
+  console.log(product);
+
+  if (loading) return <Loader />;
+  if (error) return <Message>{error}</Message>;
   return (
     <ProductContainer>
       <ProductImage src={product.image} alt={product.name} />

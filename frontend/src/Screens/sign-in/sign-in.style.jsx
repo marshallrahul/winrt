@@ -112,7 +112,7 @@ export const Illustration = styled.img`
   }
 `;
 
-export const Form = styled.div`
+export const Form = styled.form`
   display: grid;
 `;
 
@@ -135,4 +135,10 @@ export const FacebookIcon = styled.i`
   font-size: 2rem;
   color: #4267b2;
   margin-right: 1rem;
+`;
+
+export const Icon = styled.i`
+  font-size: 1.5rem;
+  margin-left: -3rem;
+  cursor: pointer;
 `;

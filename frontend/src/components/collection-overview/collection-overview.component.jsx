@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CollectionItem from "../collection-item/collection-item.component";
-import products1 from "../../products";
 import { listProducts } from "../../redux/product/product.action";
+import Loader from "../loader/loader.component";
+import Message from "../message/message.component";
 import {
   CollectionContainer,
   Wrapper,
@@ -15,14 +16,12 @@ import {
 const CollectionOverview = () => {
   const dispatch = useDispatch();
 
-  const productDetails = useSelector((state) => state.products);
-  const { loading, products, error } = productDetails;
+  const productsList = useSelector((state) => state.products);
+  const { loading, products, error } = productsList;
 
   useEffect(() => {
     dispatch(listProducts());
   }, [dispatch]);
-
-  console.log(productDetails);
 
   return (
     <Wrapper>
@@ -31,13 +30,19 @@ const CollectionOverview = () => {
         <UnderLine />
       </TextBox>
       <CollectionContainer>
-        {products1.map((product) => (
-          <CollectionItem
-            key={product._id}
-            prodId={product._id}
-            product={product}
-          />
-        ))}
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message>{error}</Message>
+        ) : (
+          products.map((product) => (
+            <CollectionItem
+              key={product._id}
+              prodId={product._id}
+              product={product}
+            />
+          ))
+        )}
       </CollectionContainer>
       <MoreLink to="/collections">
         <span>More</span> <i className="fa-solid fa-arrow-right"></i>

@@ -7,11 +7,13 @@ module.exports = buildSchema(`
   }
 
   type User {
+    _id: ID!
     name: String!
     email: String!
     password: String!
     isAdmin: Boolean!
     cart: [CartItems!]
+    token: String!
   }
 
   type Review {
@@ -24,6 +26,7 @@ module.exports = buildSchema(`
   }
 
   type Product {
+    _id: ID!
     name: String!
     image: String!
     description: String!
@@ -34,12 +37,26 @@ module.exports = buildSchema(`
     user: User!
   }
 
+  input UserInput {
+    name: String!
+    email: String!
+    password: String!
+  }
+
+  type RootMutation {
+    addToCart(id: ID!): Product! 
+    createUser(inputData: UserInput!): User!
+  }
+
   type RootQuery {
     products: [Product!]
+    product(prodId: ID!): Product!
     cartItems(id: ID!): [CartItems!]
+    login(email: String!, password: String!): User!
   }
 
   schema {
     query: RootQuery
+    mutation: RootMutation
   }
 `);

@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CollectionItem from "../../components/collection-item/collection-item.component";
 import Footer from "../../components/footer/footer.component";
+import Loader from "../../components/loader/loader.component";
+import Message from "../../components/message/message.component";
 import {
   RangeSlider,
   RangeSliderTrack,
@@ -12,7 +15,6 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
 } from "@chakra-ui/react";
-
 import {
   CollectionContainer,
   Container,
@@ -22,11 +24,20 @@ import {
   CheckBox,
   Box,
 } from "./collection.style";
-import products from "../../products";
+import { listProducts } from "../../redux/product/product.action";
 
 const Collection = () => {
+  const dispatch = useDispatch();
+
+  const productDetails = useSelector((state) => state.products);
+  const { loading, products, error } = productDetails;
+
   const format = (val) => `₹` + val;
   const [filteredPrice, setFilteredPrice] = useState({ min: 1000, max: 5000 });
+
+  useEffect(() => {
+    dispatch(listProducts());
+  }, [dispatch]);
 
   return (
     <>
@@ -97,34 +108,40 @@ const Collection = () => {
             <Heading>Types</Heading>
             <CheckBox>
               <input type="checkbox" id="mountain-bike" />
-              <Label for="mountain-bike">Mountain Bike</Label>
+              <Label htmlFor="mountain-bike">Mountain Bike</Label>
             </CheckBox>
             <CheckBox>
               <input type="checkbox" id="road-bike" />
-              <Label for="road-bike">Road Bike</Label>
+              <Label htmlFor="road-bike">Road Bike</Label>
             </CheckBox>
             <CheckBox>
               <input type="checkbox" id="folding-bike" />
-              <Label for="folding-bike">Folding Bike</Label>
+              <Label htmlFor="folding-bike">Folding Bike</Label>
             </CheckBox>
             <CheckBox>
               <input type="checkbox" id="bmx" />
-              <Label for="bmx"> BMX</Label>
+              <Label htmlFor="bmx"> BMX</Label>
             </CheckBox>
             <CheckBox>
               <input type="checkbox" id="touring-bike" />
-              <Label for="touring-bike">Touring Bike</Label>
+              <Label htmlFor="touring-bike">Touring Bike</Label>
             </CheckBox>
           </Box>
         </Filter>
         <CollectionContainer>
-          {products.map((product) => (
-            <CollectionItem
-              key={product._id}
-              prodId={product._id}
-              product={product}
-            />
-          ))}
+          {loading ? (
+            <Loader />
+          ) : error ? (
+            <Message>{error}</Message>
+          ) : (
+            products.map((product) => (
+              <CollectionItem
+                key={product._id}
+                prodId={product._id}
+                product={product}
+              />
+            ))
+          )}
         </CollectionContainer>
       </Container>
       <Footer />

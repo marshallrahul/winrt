@@ -87,7 +87,7 @@ export const Illustration = styled.img`
   }
 `;
 
-export const Form = styled.div`
+export const Form = styled.form`
   display: grid;
 `;
 
@@ -98,4 +98,10 @@ export const FormContainer = styled.div`
 export const RegisterText = styled.div`
   font-size: 1.4rem;
   margin-top: 4rem;
+`;
+
+export const Icon = styled.i`
+  font-size: 1.5rem;
+  margin-left: -3rem;
+  cursor: pointer;
 `;

@@ -1,7 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import FormInput from "../../components/form-input/form-input.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
+import Message from "../../components/message/message.component";
+import Loader from "../../components/loader/loader.component";
+import { login } from "../../redux/user/user.action";
 import {
   SignInContainer,
   Title,
@@ -16,27 +20,75 @@ import {
   RegisterText,
   GoogleIcon,
   FacebookIcon,
+  Icon,
 } from "./sign-in.style";
 
 const SignIn = () => {
+  const [hidden, setHidden] = useState(true);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [userCredentials, setCredentials] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = userCredentials;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, userInfo, error } = userLogin;
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [userInfo, navigate]);
+  console.log(userLogin);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setCredentials({ ...userCredentials, [name]: value });
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    dispatch(login(email, password));
+  };
+
   return (
     <SignInContainer>
       <FormContainer>
-        <Form onSubmit={null}>
+        <Form onSubmit={submitHandler}>
           <Title>Login</Title>
+          {loading && <Loader />}
+          {error && <Message>{error}</Message>}
           <div>
-            <FormInput type="email" placeholder="Email" signIn />
-            <i
-              className="fa-regular fa-user"
-              style={{ marginLeft: "-3rem", fontSize: "1.5rem" }}
-            ></i>
+            <FormInput
+              name="email"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={handleChange}
+              input
+            />
+            <Icon className="fa-regular fa-user" />
           </div>
           <div>
-            <FormInput type="password" placeholder="Password" signIn />
-            <i
-              className="fa-regular fa-eye-slash"
-              style={{ marginLeft: "-3rem", fontSize: "1.5rem" }}
-            ></i>
+            <FormInput
+              name="password"
+              type={hidden ? "password" : "text"}
+              placeholder="Password"
+              value={password}
+              onChange={handleChange}
+              input
+            />
+            <Icon
+              className={
+                hidden ? "fa-regular fa-eye-slash" : "fa-regular fa-eye"
+              }
+              onClick={() => {
+                setHidden(!hidden);
+              }}
+            />
           </div>
           <CustomButton type="submit" signIn>
             LOGIN
@@ -48,7 +100,7 @@ const SignIn = () => {
           </Container>
           <Social>
             <SocialContainer facebook>
-              <FacebookIcon className="fa-brands fa-facebook-f"></FacebookIcon>
+              <FacebookIcon className="fa-brands fa-facebook-square"></FacebookIcon>
               Continue with Facebook
             </SocialContainer>
             <SocialContainer>

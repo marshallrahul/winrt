@@ -29,8 +29,6 @@ const Product = () => {
     dispatch(listProductDetails(params.id));
   }, [dispatch, params]);
 
-  console.log(product);
-
   if (loading) return <Loader />;
   if (error) return <Message>{error}</Message>;
   return (

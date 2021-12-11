@@ -1,10 +1,11 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { Fragment } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { User, Heart, ShoppingCart } from "phosphor-react";
 import Loader from "../loader/loader.component";
 import Message from "../message/message.component";
 import Submenu from "../sub-menu/sub-menu.component";
+import UserActionTypes from "../../redux/user/user.types";
 import {
   WrapperContianer,
   Logo,
@@ -23,15 +24,18 @@ import {
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, userInfo, error } = userLogin;
 
-  const logoutHandler = () => {};
+  const logoutHandler = () => {
+    dispatch({ type: UserActionTypes.USER_LOGOUT });
+  };
 
   if (loading) return <Loader />;
   if (error) return <Message>{error}</Message>;
   return (
-    <div>
+    <Fragment>
       <WrapperContianer>
         <CheckBox type="checkbox" id="check" style={{ display: "none" }} />
         <Logo>WINRT</Logo>
@@ -54,7 +58,7 @@ const Header = () => {
           <NavLinks to="/" className="nav__links">
             Portfolio
           </NavLinks>
-          {userInfo && (
+          {userInfo ? (
             <>
               <AdminCheckbox
                 type="checkbox"
@@ -62,9 +66,11 @@ const Header = () => {
                 id="admin"
                 style={{ display: "none" }}
               />
-              <AdminContainer for="admin" className="nav__admin">
-                Admin <i class="fa-solid fa-plus"></i>
-              </AdminContainer>
+              {userInfo.isAdmin && (
+                <AdminContainer htmlFor="admin" className="nav__admin">
+                  Admin <i class="fa-solid fa-plus"></i>
+                </AdminContainer>
+              )}
               <DropdownSub className="section-dropdown">
                 <div>Users</div>
                 <div>Products</div>
@@ -75,6 +81,10 @@ const Header = () => {
               </NavLinks>
               <LogoutContainer onClick={logoutHandler}>Logout</LogoutContainer>
             </>
+          ) : (
+            <NavLinks to="/signin" className="nav__links nav__links--login">
+              Login
+            </NavLinks>
           )}
         </NavContainer>
         <NavIconContainer>
@@ -90,7 +100,7 @@ const Header = () => {
           </NavIcons>
         </NavIconContainer>
       </WrapperContianer>
-    </div>
+    </Fragment>
   );
 };
 

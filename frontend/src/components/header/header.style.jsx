@@ -52,11 +52,19 @@ export const NavContainer = styled.div`
     }
   }
 
+  .nav__links--login {
+    display: none;
+
+    @media only screen and (max-width: 946px) {
+      display: block;
+    }
+  }
+
   @media only screen and (max-width: 946px) {
     display: block;
     font-size: 2rem;
     width: 100%;
-    height: 50rem;
+    height: 55rem;
     position: absolute;
     top: 5.6rem;
     left: -100%;
@@ -86,7 +94,7 @@ export const DropdownSub = styled.div`
 
   @media only screen and (max-width: 946px) {
     position: relative;
-    display: block;
+    display: grid;
     width: 100%;
     opacity: 0;
     height: 0;
@@ -99,11 +107,11 @@ export const DropdownSub = styled.div`
 export const AdminCheckbox = styled.input`
   &:checked ~ .section-dropdown {
     opacity: 1;
-    height: 10rem;
+    height: 12rem;
   }
 
   &:checked ~ .nav__admin {
-    margin: 0 2rem;
+    margin: 0.5rem 2rem;
   }
 `;
 

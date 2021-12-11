@@ -46,8 +46,16 @@ export const Dots1 = styled.img`
     left: 2.2rem;
   }
 
-  @media only screen and (max-width: 370px) {
+  @media only screen and (max-width: 399px) {
     top: 22.6rem;
+  }
+
+  @media only screen and (max-width: 370px) {
+    top: 17rem;
+  }
+
+  @media only screen and (max-width: 364px) {
+    top: 21rem;
   }
 `;
 

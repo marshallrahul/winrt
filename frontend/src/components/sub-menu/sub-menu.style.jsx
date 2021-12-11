@@ -5,6 +5,10 @@ export const SubMenuContainer = styled.div`
   opacity: 0;
   transition: all 0.2s;
   top: 4.5rem;
+
+  @media only screen and (max-width: 946px) {
+    display: none;
+  }
 `;
 
 export const SubMenuItems = styled.div`

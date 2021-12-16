@@ -5,7 +5,7 @@ import { User, Heart, ShoppingCart } from "phosphor-react";
 import Loader from "../loader/loader.component";
 import Message from "../message/message.component";
 import Submenu from "../sub-menu/sub-menu.component";
-import UserActionTypes from "../../redux/user/user.types";
+import { logout } from "../../redux/user/user.action";
 import {
   WrapperContianer,
   Logo,
@@ -29,7 +29,7 @@ const Header = () => {
   const { loading, userInfo, error } = userLogin;
 
   const logoutHandler = () => {
-    dispatch({ type: UserActionTypes.USER_LOGOUT });
+    dispatch(logout());
   };
 
   if (loading) return <Loader />;

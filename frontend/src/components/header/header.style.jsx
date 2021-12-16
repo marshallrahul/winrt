@@ -156,6 +156,8 @@ export const NavIconContainer = styled.ul`
 export const NavIcons = styled.li`
   padding: 0 1rem;
   cursor: pointer;
+
+  &:active,
   &:hover {
     div {
       opacity: 1;

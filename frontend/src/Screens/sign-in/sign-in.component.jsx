@@ -53,6 +53,14 @@ const SignIn = () => {
     dispatch(login(email, password));
   };
 
+  const google = () => {
+    window.open("http://localhost:5000/auth/google", "_self");
+  };
+
+  const facebook = () => {
+    window.open("http://localhost:5000/auth/facebook", "_self");
+  };
+
   return (
     <SignInContainer>
       <FormContainer>
@@ -98,11 +106,11 @@ const SignIn = () => {
             <HorizontalLine>&#x200B;</HorizontalLine>
           </Container>
           <Social>
-            <SocialContainer facebook>
+            <SocialContainer facebook onClick={facebook}>
               <FacebookIcon className="fa-brands fa-facebook-square"></FacebookIcon>
               Continue with Facebook
             </SocialContainer>
-            <SocialContainer>
+            <SocialContainer onClick={google}>
               <GoogleIcon className="fa-brands fa-google"></GoogleIcon>
               Login with Google
             </SocialContainer>

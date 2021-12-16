@@ -29,3 +29,33 @@ export const userLoginReducer = (state = { userInfo: {} }, action) => {
       return state;
   }
 };
+
+export const userFacebookLoginReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UserActionTypes.USER_FACEBOOK_LOGIN_REQUEST:
+      return { loading: true };
+    case UserActionTypes.USER_FACEBOOK_LOGIN_SUCCESS:
+      return { loading: false };
+    case UserActionTypes.USER_FACEBOOK_LOGIN_FAIL:
+      return { loading: false };
+    case UserActionTypes.USER_LOGOUT:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const userGoogleLoginReducer = (state = { userInfo: {} }, action) => {
+  switch (action.type) {
+    case UserActionTypes.USER_GOOGLE_LOGIN_REQUEST:
+      return { loading: true };
+    case UserActionTypes.USER_GOOGLE_LOGIN_SUCCESS:
+      return { loading: false };
+    case UserActionTypes.USER_GOOGLE_LOGIN_FAIL:
+      return { loading: false };
+    case UserActionTypes.USER_LOGOUT:
+      return {};
+    default:
+      return state;
+  }
+};

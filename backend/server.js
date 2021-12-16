@@ -3,10 +3,15 @@ const dotenv = require("dotenv");
 const colors = require("colors");
 const { graphqlHTTP } = require("express-graphql");
 const cors = require("cors");
+const passport = require("passport");
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 
 const connectDB = require("./config/db");
 const graphqlSchema = require("./graphql/schema");
 const graphqlResolver = require("./graphql/resolver");
+const authRoute = require("./routes/auth");
 
 // .env
 if (process.env.NODE_ENV !== "production") {
@@ -16,18 +21,37 @@ if (process.env.NODE_ENV !== "production") {
 // DB config
 connectDB();
 
+// App
 const app = express();
+
+// Allow connection
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+
+// Parsing json data
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// sessions
+app.use(
+  session({
+    secret: "my secret",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use(cookieParser("secretcode"));
+app.use(passport.initialize());
+app.use(passport.session());
+require("./config/passport")(passport);
 
 // Testing
 app.get("/", (req, res) => {
-  res.send("API is running...");
+  res.json({
+    message: "🦄🌈✨👋🌎🌍🌏✨🌈🦄",
+  });
 });
-
-// Parsing json data
-app.use(express.json());
-
-// Allow connection
-app.use(cors());
 
 app.use(
   "/graphql",
@@ -54,6 +78,9 @@ app.use(
     },
   })
 );
+
+// Routes
+app.use("/auth", authRoute);
 
 // Error handling
 app.use((error, req, res, next) => {

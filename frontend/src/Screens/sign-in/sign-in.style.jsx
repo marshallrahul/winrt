@@ -82,9 +82,11 @@ export const Social = styled.div`
 
 export const SocialContainer = styled.div`
   font-size: 1.5rem;
-  font-weight: 600;
-  color: #2d9cdb;
-  border: 2px solid #2d9cdb;
+  font-weight: 500;
+  color: #fff;
+  border: ${(props) =>
+    props.facebook ? "2px solid #4267b2" : "2px solid #4285f4"};
+  background-color: ${(props) => (props.facebook ? "#4267b2" : "#4285f4")};
   border-radius: 2px;
   padding: 1rem;
   display: flex;
@@ -93,11 +95,6 @@ export const SocialContainer = styled.div`
   cursor: pointer;
 
   @media only screen and (max-width: 1024px) {
-    font-weight: 600;
-    border: ${(props) =>
-      props.facebook ? "2px solid #4267b2" : "2px solid #4285f4"};
-    background-color: #ffffff;
-    color: #2d9cdb;
     justify-content: center;
   }
 `;
@@ -127,13 +124,13 @@ export const RegisterText = styled.div`
 
 export const GoogleIcon = styled.i`
   font-size: 2rem;
-  color: #4285f4;
+  color: #fff;
   margin-right: 1rem;
 `;
 
 export const FacebookIcon = styled.i`
   font-size: 2rem;
-  color: #4267b2;
+  color: #fff;
   margin-right: 1rem;
 `;
 

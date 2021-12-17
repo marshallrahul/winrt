@@ -2,6 +2,7 @@ const dotenv = require("dotenv");
 const User = require("../models/userModel.js");
 const FacebookStrategy = require("passport-facebook").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const GitHubStrategy = require("passport-github2").Strategy;
 
 // .env
 if (process.env.NODE_ENV !== "production") {
@@ -15,23 +16,13 @@ module.exports = function (passport) {
         clientID: process.env.FACEBOOK_APP_ID,
         clientSecret: process.env.FACEBOOK_APP_SECRET,
         callbackURL: "http://localhost:5000/auth/facebook/callback",
-        profileFields: [
-          "id",
-          "email",
-          "gender",
-          "link",
-          "locale",
-          "name",
-          "timezone",
-          "updated_time",
-          "verified",
-        ],
+        profileFields: ["id", "displayName", "email", "photos"],
       },
       function (accessToken, refreshToken, profile, cb) {
-        // console.log(profile);
         console.log(
           `FACEBOOK BASED OAUTH VALIDATION GETTING CALLED`.underline.brightGreen
         );
+        console.log("Provider", profile.provider);
         User.findOne({
           email: profile.emails[0].value,
         }).then((existingUser) => {
@@ -63,6 +54,7 @@ module.exports = function (passport) {
         console.log(
           `GOOGLE BASED OAUTH VALIDATION GETTING CALLED`.underline.brightGreen
         );
+        console.log("Provider", profile.provider);
         User.findOne({
           email: profile.emails[0].value,
         }).then((existingUser) => {
@@ -72,6 +64,38 @@ module.exports = function (passport) {
             new User({
               name: profile.displayName,
               email: profile.emails[0].value,
+            })
+              .save()
+              .then((user) => {
+                return cb(null, user);
+              });
+          }
+        });
+      }
+    )
+  );
+
+  passport.use(
+    new GitHubStrategy(
+      {
+        clientID: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        callbackURL: "http://localhost:5000/auth/github/callback",
+      },
+      function (accessToken, refreshToken, profile, cb) {
+        console.log(
+          `GITHUB BASED OAUTH VALIDATION GETTING CALLED`.underline.brightGreen
+        );
+        console.log("Provider", profile.provider);
+        User.findOne({
+          email: profile.profileUrl,
+        }).then((existingUser) => {
+          if (existingUser) {
+            return cb(null, existingUser);
+          } else {
+            new User({
+              name: profile.displayName,
+              email: profile.profileUrl,
             })
               .save()
               .then((user) => {

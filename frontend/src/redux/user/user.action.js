@@ -109,8 +109,6 @@ export const facebookLogin = () => async (dispatch) => {
       withCredentials: true,
     });
 
-    // console.log(user);
-
     dispatch({
       type: UserActionTypes.USER_FACEBOOK_LOGIN_SUCCESS,
     });
@@ -132,7 +130,42 @@ export const facebookLogin = () => async (dispatch) => {
   }
 };
 
-export const googleLogin = () => async (dispatch) => {
+// export const googleLogin = () => async (dispatch) => {
+//   try {
+//     dispatch({ type: UserActionTypes.USER_GOOGLE_LOGIN_REQUEST });
+
+//     const {
+//       data: { user },
+//     } = await axios({
+//       url: "http://localhost:5000/auth/login/success",
+//       method: "GET",
+//       headers: { "Content-Type": "Application/json" },
+//       withCredentials: true,
+//     });
+//     console.log(user);
+
+//     dispatch({
+//       type: UserActionTypes.USER_GOOGLE_LOGIN_SUCCESS,
+//     });
+
+//     dispatch({
+//       type: UserActionTypes.USER_LOGIN_SUCCESS,
+//       payload: user,
+//     });
+
+//     localStorage.setItem("userDetails", JSON.stringify(user));
+//   } catch (error) {
+//     dispatch({
+//       type: UserActionTypes.USER_GOOGLE_LOGIN_FAIL,
+//       payload:
+//         error.response && error.response.data.message
+//           ? error.response.data.message
+//           : error.message,
+//     });
+//   }
+// };
+
+export const githubLogin = () => async (dispatch) => {
   try {
     dispatch({ type: UserActionTypes.USER_GOOGLE_LOGIN_REQUEST });
 

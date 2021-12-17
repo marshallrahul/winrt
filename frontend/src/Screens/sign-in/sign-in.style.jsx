@@ -66,6 +66,7 @@ export const Social = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 2rem;
+  row-gap: 2rem;
 
   @media only screen and (max-width: 1024px) {
     grid-template-columns: auto;
@@ -84,9 +85,12 @@ export const SocialContainer = styled.div`
   font-size: 1.5rem;
   font-weight: 500;
   color: #fff;
-  border: ${(props) =>
-    props.facebook ? "2px solid #4267b2" : "2px solid #4285f4"};
-  background-color: ${(props) => (props.facebook ? "#4267b2" : "#4285f4")};
+  border: ${(props) => props.facebook && "2px solid #4267b2"};
+  border: ${(props) => props.google && "2px solid #4285f4"};
+  border: ${(props) => props.github && "2px solid #171515"};
+  background-color: ${(props) => props.facebook && "#4267b2"};
+  background-color: ${(props) => props.google && "#4285f4"};
+  background-color: ${(props) => props.github && "#171515"};
   border-radius: 2px;
   padding: 1rem;
   display: flex;
@@ -103,6 +107,7 @@ export const Illustration = styled.img`
   width: 100%;
   max-width: 55rem;
   align-self: center;
+  z-index: -1;
 
   @media only screen and (max-width: 1024px) {
     display: none;

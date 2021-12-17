@@ -9,14 +9,14 @@ import { register } from "../../redux/user/user.action";
 import {
   SignInContainer,
   Title,
-  HorizontalLine,
-  Text,
+  // HorizontalLine,
+  // Text,
   Illustration,
   Form,
-  Container,
+  // Container,
   FormContainer,
   RegisterText,
-  Social,
+  // Social,
   Icon,
 } from "./sign-up.style";
 
@@ -120,7 +120,7 @@ const SignUp = () => {
           <CustomButton type="submit" signIn>
             SIGNUP
           </CustomButton>
-          <Container>
+          {/* <Container>
             <HorizontalLine>&#x200B;</HorizontalLine>
             <Text>or</Text>
             <HorizontalLine>&#x200B;</HorizontalLine>
@@ -138,7 +138,7 @@ const SignUp = () => {
               src="https://img.icons8.com/color/48/000000/instagram-new--v2.png"
               alt="instagram"
             />
-          </Social>
+          </Social> */}
         </Form>
         <RegisterText>
           Have an account?{" "}

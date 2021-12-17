@@ -1,15 +1,15 @@
 const express = require("express");
 const passport = require("passport");
+const generateToken = require("../utils/generateToken");
 
 const router = express.Router();
 
 router.get("/login/success", (req, res) => {
-  // console.log(req.session.user);
   if (req.user) {
     res.status(200).json({
       success: true,
       message: "successfull",
-      user: req.session.user,
+      user: { ...req.session.user, token: generateToken(req.session.user._id) },
     });
   }
 });
@@ -23,9 +23,13 @@ router.get(
 router.get(
   "/facebook/callback",
   passport.authenticate("facebook", {
-    successRedirect: "http://localhost:3000/",
+    failureMessage: "Cannot login to Facebook, please try again later!",
     failureRedirect: "http://localhost:3000/signin",
-  })
+  }),
+  (req, res) => {
+    req.session.user = req.user;
+    res.redirect("http://localhost:3000/");
+  }
 );
 
 // google routes
@@ -41,7 +45,24 @@ router.get(
     failureRedirect: "http://localhost:3000/signin",
   }),
   (req, res) => {
-    // console.log("User: ", req.user);
+    req.session.user = req.user;
+    res.redirect("http://localhost:3000/");
+  }
+);
+
+// facebook routes
+router.get(
+  "/github",
+  passport.authenticate("github", { scope: ["user:email"] })
+);
+
+router.get(
+  "/github/callback",
+  passport.authenticate("github", {
+    failureMessage: "Cannot login to Github, please try again later!",
+    failureRedirect: "http://localhost:3000/signin",
+  }),
+  (req, res) => {
     req.session.user = req.user;
     res.redirect("http://localhost:3000/");
   }

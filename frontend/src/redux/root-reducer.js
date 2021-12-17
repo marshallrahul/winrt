@@ -11,6 +11,7 @@ import {
   userLoginReducer,
   userFacebookLoginReducer,
   userGoogleLoginReducer,
+  userGithubLoginReducer,
 } from "./user/user.reducers";
 
 // const persistConfig = {
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   userLogin: userLoginReducer,
   userFacebookLogin: userFacebookLoginReducer,
   userGoogleLogin: userGoogleLoginReducer,
+  userGithubLogin: userGithubLoginReducer,
 });
 
 export default rootReducer;

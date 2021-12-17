@@ -6,6 +6,7 @@ const cors = require("cors");
 const passport = require("passport");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 
 const connectDB = require("./config/db");
@@ -41,7 +42,10 @@ app.use(
     saveUninitialized: true,
   })
 );
-app.use(cookieParser("secretcode"));
+// app.use(
+//   cookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 })
+// );
+// app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
 require("./config/passport")(passport);

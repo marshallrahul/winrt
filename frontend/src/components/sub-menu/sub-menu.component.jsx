@@ -3,19 +3,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import UserActionTypes from "../../redux/user/user.types";
 import Loader from "../loader/loader.component";
-import Message from "../message/message.component";
 import { SubMenuContainer, SubMenuItems } from "./sub-menu.style";
 
 const Submenu = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, userInfo, error } = userLogin;
+  const { loading, userInfo } = userLogin;
 
   return (
     <div>
       {loading && <Loader />}
-      {error && <Message>{error}</Message>}
       <SubMenuContainer>
         {userInfo && (
           <>

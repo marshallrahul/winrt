@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { User, Heart, ShoppingCart } from "phosphor-react";
 import Loader from "../loader/loader.component";
-import Message from "../message/message.component";
 import Submenu from "../sub-menu/sub-menu.component";
 import { logout } from "../../redux/user/user.action";
 import {
@@ -26,14 +25,13 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, userInfo, error } = userLogin;
+  const { loading, userInfo } = userLogin;
 
   const logoutHandler = () => {
     dispatch(logout());
   };
 
   if (loading) return <Loader />;
-  if (error) return <Message>{error}</Message>;
   return (
     <Fragment>
       <WrapperContianer>

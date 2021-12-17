@@ -45,13 +45,28 @@ export const userFacebookLoginReducer = (state = {}, action) => {
   }
 };
 
-export const userGoogleLoginReducer = (state = { userInfo: {} }, action) => {
+export const userGoogleLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case UserActionTypes.USER_GOOGLE_LOGIN_REQUEST:
       return { loading: true };
     case UserActionTypes.USER_GOOGLE_LOGIN_SUCCESS:
       return { loading: false };
     case UserActionTypes.USER_GOOGLE_LOGIN_FAIL:
+      return { loading: false };
+    case UserActionTypes.USER_LOGOUT:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const userGithubLoginReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UserActionTypes.USER_GITHUB_LOGIN_REQUEST:
+      return { loading: true };
+    case UserActionTypes.USER_GITHUB_LOGIN_SUCCESS:
+      return { loading: false };
+    case UserActionTypes.USER_GITHUB_LOGIN_FAIL:
       return { loading: false };
     case UserActionTypes.USER_LOGOUT:
       return {};

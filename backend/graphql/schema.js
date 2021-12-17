@@ -2,8 +2,8 @@ const { buildSchema } = require("graphql");
 
 module.exports = buildSchema(`
   type CartItems {
-    items: [Product]
-    quantity: Int
+    productData: Product!
+    quantity: Int!
   }
 
   type User {

@@ -26,7 +26,14 @@ module.exports = {
     };
   },
 
-  addToCart: async function ({ id }) {},
+  addToCart: async function ({ id }) {
+    // if (req.isAuth) {
+    const product = await Product.findById(id);
+    const existingUser = await User.findOne({ _id: req.userId });
+    let newQuantity = 1;
+
+    // }
+  },
 
   createUser: async function ({ inputData }) {
     const existingUser = await User.findOne({ email: inputData.email });

@@ -6,13 +6,7 @@ import {
   productReducer,
   productDetailsReducer,
 } from "./product/product.reducer";
-import {
-  userRegisterReducer,
-  userLoginReducer,
-  userFacebookLoginReducer,
-  userGoogleLoginReducer,
-  userGithubLoginReducer,
-} from "./user/user.reducers";
+import { userRegisterReducer, userLoginReducer } from "./user/user.reducers";
 
 // const persistConfig = {
 //   key: "root",
@@ -24,9 +18,6 @@ const rootReducer = combineReducers({
   productDetails: productDetailsReducer,
   userRegister: userRegisterReducer,
   userLogin: userLoginReducer,
-  userFacebookLogin: userFacebookLoginReducer,
-  userGoogleLogin: userGoogleLoginReducer,
-  userGithubLogin: userGithubLoginReducer,
 });
 
 export default rootReducer;

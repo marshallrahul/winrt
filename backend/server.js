@@ -5,14 +5,15 @@ const { graphqlHTTP } = require("express-graphql");
 const cors = require("cors");
 const passport = require("passport");
 const session = require("express-session");
-const cookieParser = require("cookie-parser");
-const cookieSession = require("cookie-session");
-const bodyParser = require("body-parser");
+// const cookieParser = require("cookie-parser");
+// const cookieSession = require("cookie-session");
+// const bodyParser = require("body-parser");
 
 const connectDB = require("./config/db");
 const graphqlSchema = require("./graphql/schema");
 const graphqlResolver = require("./graphql/resolver");
 const authRoute = require("./routes/auth");
+const auth = require("./middlewares/is-auth");
 
 // .env
 if (process.env.NODE_ENV !== "production") {
@@ -27,12 +28,10 @@ const app = express();
 
 // Allow connection
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(auth);
 
 // Parsing json data
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 // sessions
 app.use(
@@ -42,10 +41,6 @@ app.use(
     saveUninitialized: true,
   })
 );
-// app.use(
-//   cookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 })
-// );
-// app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
 require("./config/passport")(passport);

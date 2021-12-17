@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
-  // _id: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  // },
+  // TODO: Add social accounts IDs
   name: {
     type: String,
     required: true,

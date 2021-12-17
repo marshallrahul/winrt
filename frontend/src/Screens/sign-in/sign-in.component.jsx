@@ -35,13 +35,7 @@ const SignIn = () => {
   const { email, password } = userCredentials;
 
   const userLogin = useSelector((state) => state.userLogin);
-  const userFacebookLogin = useSelector((state) => state.userFacebookLogin);
-  const userGoogleLogin = useSelector((state) => state.userGoogleLogin);
-  const userGithubLogin = useSelector((state) => state.userGithubLogin);
   const { loading, userInfo, error } = userLogin;
-  const { loading: facebookLoading } = userFacebookLogin;
-  const { loading: googleLoading } = userGoogleLogin;
-  const { loading: githubLoading } = userGithubLogin;
 
   useEffect(() => {
     if (userInfo) {
@@ -77,9 +71,6 @@ const SignIn = () => {
         <Form onSubmit={submitHandler}>
           <Title>Login</Title>
           {loading && <Loader />}
-          {facebookLoading && <Loader />}
-          {googleLoading && <Loader />}
-          {githubLoading && <Loader />}
           {error && <Message>{error}</Message>}
           <div>
             <FormInput
@@ -132,7 +123,6 @@ const SignIn = () => {
               google
               onClick={() => {
                 google();
-                // dispatch(googleLogin());
               }}
             >
               <GoogleIcon className="fa-brands fa-google"></GoogleIcon>

@@ -50,7 +50,7 @@ router.get(
   }
 );
 
-// facebook routes
+// github routes
 router.get(
   "/github",
   passport.authenticate("github", { scope: ["user:email"] })

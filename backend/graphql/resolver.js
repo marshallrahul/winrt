@@ -26,12 +26,13 @@ module.exports = {
     };
   },
 
-  addToCart: async function ({ id }) {
+  addToCart: async function ({ id, quantity }) {
     // if (req.isAuth) {
     const product = await Product.findById(id);
-    const existingUser = await User.findOne({ _id: req.userId });
-    let newQuantity = 1;
-
+    const user = await User.findOne({ _id: req.userId });
+    let newQuantity = quantity || 1;
+    user.cart.items.push({ productData: product._id, quantity: newQuantity });
+    await user.save();
     // }
   },
 

@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import NumberFormat from "react-number-format";
 import Rating from "../../components/rating/rating.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
 import {
@@ -30,6 +32,15 @@ import {
 } from "./cart.style";
 
 const CartScreen = () => {
+  const [value, setValue] = useState();
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+  const totalPrice = cartItems.reduce(
+    (previousValue, currentValue) => previousValue + currentValue.price,
+    0
+  );
+  console.log(value);
+
   return (
     <Box>
       <Wrapper>
@@ -39,37 +50,61 @@ const CartScreen = () => {
             <QTY>QTY</QTY>
             <Prc>Price</Prc>
           </Thead>
-          <TableContainer>
-            <ItemContainer>
-              <ImageContainer src="/images/cycle-1.jpg" alt="cycle-1" />
-              <div>
-                <Title>Master Wheels</Title>
-                <Description>
-                  Mountain bicycle is a bicycle designed for off-road cycling.
-                  Mountain bikes are...
-                </Description>
-                <RatingBox>
-                  <RatingNum>4.9</RatingNum>
-                  <Rating value={4.9} />
-                </RatingBox>
-              </div>
-            </ItemContainer>
-            <Quantity>
-              <NumberInput size="lg" maxW={32} defaultValue={1} min={1} max={7}>
-                <NumberInputField />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
-            </Quantity>
-            <RemoveText>Remove</RemoveText>
-            <Price>₹5,000</Price>
-          </TableContainer>
+          {cartItems.map((product) => (
+            <TableContainer key={product._id}>
+              <ItemContainer>
+                <ImageContainer src={product.image} alt={product.name} />
+                <div>
+                  <Title>{product.name}</Title>
+                  <Description>
+                    {product.description.length > 80 &&
+                      `${product.description.substr(1, 80)}...`}
+                  </Description>
+                  <RatingBox>
+                    <RatingNum>{product.rating}</RatingNum>
+                    <Rating value={product.rating} />
+                  </RatingBox>
+                </div>
+              </ItemContainer>
+              <Quantity>
+                <NumberInput
+                  size="lg"
+                  maxW={32}
+                  defaultValue={product.quantity}
+                  min={1}
+                  max={product.countInStock}
+                  onChange={(val) => setValue(val)}
+                >
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+              </Quantity>
+              <RemoveText>Remove</RemoveText>
+              <Price>
+                {" "}
+                <NumberFormat
+                  value={product.price}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  prefix={"₹"}
+                />
+              </Price>
+            </TableContainer>
+          ))}
         </div>
         <CheckoutContainer>
           <Text>Total:</Text>
-          <TotalPrice>₹5,000</TotalPrice>
+          <TotalPrice>
+            <NumberFormat
+              value={totalPrice}
+              displayType={"text"}
+              thousandSeparator={true}
+              prefix={"₹"}
+            />
+          </TotalPrice>
           <CustomButton checkout>CHECKOUT</CustomButton>
         </CheckoutContainer>
       </Wrapper>

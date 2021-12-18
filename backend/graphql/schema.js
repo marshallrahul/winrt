@@ -44,7 +44,7 @@ module.exports = buildSchema(`
   }
 
   type RootMutation {
-    addToCart(id: ID!): Product! 
+    addToCart(id: ID!, quantity: Int!): User! 
     createUser(inputData: UserInput!): User!
   }
 

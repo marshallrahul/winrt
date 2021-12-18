@@ -37,7 +37,7 @@ export const TableContainer = styled.div`
   column-gap: 5rem;
   align-items: flex-start;
   border-bottom: 2px solid #bbc8d4;
-  padding-bottom: 1rem;
+  padding: 1rem 0;
 
   @media only screen and (max-width: 712px) {
     grid-template-columns: repeat(3, 1fr);
@@ -148,7 +148,6 @@ export const Thead = styled.div`
   align-items: center;
   justify-content: space-between;
   border-bottom: 2px solid #bbc8d4;
-  margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   color: #25313c;
 `;

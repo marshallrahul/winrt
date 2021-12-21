@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Hero from "../../components/hero/hero.component";
 import CollectionOverview from "../../components/collection-overview/collection-overview.component";
 import Details from "../../components/details/details.component";
@@ -11,6 +11,9 @@ import UserActionTypes from "../../redux/user/user.types";
 
 const HomePage = () => {
   const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   useEffect(() => {
     const getUser = () => {
@@ -33,8 +36,11 @@ const HomePage = () => {
           console.log(err);
         });
     };
+
+    // Social Media Log In
     getUser();
-  }, [dispatch]);
+  }, [dispatch, userInfo]);
+
   return (
     <>
       <Hero />

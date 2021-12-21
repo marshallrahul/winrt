@@ -6,7 +6,7 @@ import Rating from "../../components/rating/rating.component";
 import Loader from "../../components/loader/loader.component";
 import Message from "../../components/message/message.component";
 import { listProductDetails } from "../../redux/product/product.action";
-import { addToCart } from "../../redux/cart/cart.action";
+import { addCartItem } from "../../redux/cart/cart.action";
 import {
   ProductContainer,
   ProductImage,
@@ -18,6 +18,7 @@ import {
   SaveContainer,
   Box,
 } from "./product.style";
+import axios from "axios";
 
 const Product = () => {
   const [qty, setQty] = useState(1);
@@ -27,12 +28,34 @@ const Product = () => {
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, product, error } = productDetails;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   useEffect(() => {
     dispatch(listProductDetails(params.id));
   }, [dispatch, params]);
 
   const handleChange = (event) => {
     setQty(event.currentTarget.value);
+  };
+
+  const cartHandler = async (item) => {
+    if (userInfo) {
+      await axios("http://localhost:5000/api/cart", {
+        method: "POST",
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + userInfo.token,
+        },
+        data: {
+          prodId: item._id,
+          quantity: qty,
+        },
+      });
+    } else {
+      dispatch(addCartItem(item._id, qty));
+    }
   };
 
   if (loading) return <Loader />;
@@ -55,10 +78,7 @@ const Product = () => {
           <option value="3">3</option>
         </Select>
         <Box>
-          <CustomButton
-            onClick={() => dispatch(addToCart(product._id, qty))}
-            prod
-          >
+          <CustomButton onClick={() => cartHandler(product)} prod>
             Add To Cart
           </CustomButton>
           <SaveContainer>

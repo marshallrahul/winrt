@@ -1,24 +1,18 @@
 const { buildSchema } = require("graphql");
 
 module.exports = buildSchema(`
-  type CartItems {
-    productData: Product!
-    quantity: Int!
-  }
-
   type User {
     _id: ID!
     name: String!
     email: String!
     password: String!
     isAdmin: Boolean!
-    cart: [CartItems!]
     token: String!
   }
 
   type Review {
     name: String!
-    rating: String!
+    rating: Int!
     comment: String!
     user: User!
     createdAt: String!
@@ -32,7 +26,7 @@ module.exports = buildSchema(`
     description: String!
     price: Int!
     countInStock: Int!
-    rating: String!
+    rating: Int!
     reviews: [Review!],
     user: User!
   }
@@ -44,14 +38,12 @@ module.exports = buildSchema(`
   }
 
   type RootMutation {
-    addToCart(id: ID!, quantity: Int!): User! 
     createUser(inputData: UserInput!): User!
   }
 
   type RootQuery {
     products: [Product!]
     product(prodId: ID!): Product!
-    cartItems(id: ID!): [CartItems!]
     login(email: String!, password: String!): User!
   }
 

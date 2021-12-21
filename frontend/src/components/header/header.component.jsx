@@ -28,6 +28,7 @@ const Header = () => {
   const { loading, userInfo } = userLogin;
 
   const logoutHandler = () => {
+    navigate("/signin");
     dispatch(logout());
   };
 
@@ -66,7 +67,7 @@ const Header = () => {
               />
               {userInfo.isAdmin && (
                 <AdminContainer htmlFor="admin" className="nav__admin">
-                  Admin <i class="fa-solid fa-plus"></i>
+                  Admin <i className="fa-solid fa-plus"></i>
                 </AdminContainer>
               )}
               <DropdownSub className="section-dropdown">

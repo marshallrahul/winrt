@@ -1,7 +1,7 @@
 import axios from "axios";
 import { CART_ADD_ITEM } from "./cart.types";
 
-export const addToCart = (prodId, qty) => async (dispatch, getState) => {
+export const addCartItem = (prodId, qty) => async (dispatch, getState) => {
   const graphqlQuery = {
     query: `{
       product(prodId:"${prodId}"){

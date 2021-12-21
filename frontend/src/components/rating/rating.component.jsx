@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { RatingContainer } from "./rating.style";
 
 const Rating = ({ value, text, color, ...props }) => {
@@ -9,7 +8,7 @@ const Rating = ({ value, text, color, ...props }) => {
         <i
           style={{ color: color }}
           className={
-            value >= "1"
+            value >= 1
               ? "fas fa-star"
               : value >= 0.5
               ? "fas fa-star-half-alt"
@@ -65,19 +64,12 @@ const Rating = ({ value, text, color, ...props }) => {
           }
         ></i>
       </span>
-      <span>{text && text}</span>
     </RatingContainer>
   );
 };
 
 Rating.defaultProps = {
   color: "#FF9529",
-};
-
-Rating.propTypes = {
-  value: PropTypes.number.isRequired,
-  text: PropTypes.number.isRequired,
-  color: PropTypes.string,
 };
 
 export default Rating;

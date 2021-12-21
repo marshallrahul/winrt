@@ -12,7 +12,8 @@ const session = require("express-session");
 const connectDB = require("./config/db");
 const graphqlSchema = require("./graphql/schema");
 const graphqlResolver = require("./graphql/resolver");
-const authRoute = require("./routes/auth");
+const authRoute = require("./routes/authRouter");
+const shopRoute = require("./routes/shopRouter");
 const auth = require("./middlewares/is-auth");
 
 // .env
@@ -26,12 +27,12 @@ connectDB();
 // App
 const app = express();
 
-// Allow connection
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
-app.use(auth);
-
 // Parsing json data
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Allow connection
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 // sessions
 app.use(
@@ -44,6 +45,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 require("./config/passport")(passport);
+
+// Middleware
+app.use(auth);
 
 // Testing
 app.get("/", (req, res) => {
@@ -80,6 +84,7 @@ app.use(
 
 // Routes
 app.use("/auth", authRoute);
+app.use("/api", shopRoute);
 
 // Error handling
 app.use((error, req, res, next) => {

@@ -18,19 +18,19 @@ const Review = () => {
       <Reviews>
         <SingleReview
           value={4.5}
-          imageUrl="/images/Ellipse 103-2.png"
+          imageUrl="/images/Ellipse-103-2.png"
           alt="May Gauthier"
           name="Olia Nayda"
         />
         <SingleReview
           value={4}
-          imageUrl="/images/Ellipse 103.png"
+          imageUrl="/images/Ellipse-103.png"
           alt="Ben Parker"
           name="Ben Parker"
         />
         <SingleReview
           value={5}
-          imageUrl="/images/Ellipse 103-1.png"
+          imageUrl="/images/Ellipse-103-1.png"
           alt="May Gauthier"
           name="Olia Nayda"
         />

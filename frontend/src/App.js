@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/header/header.component";
 import HomePage from "./Screens/homepage/homepage";
@@ -11,6 +13,30 @@ import Cart from "./Screens/cart/cart.component";
 import "./App.css";
 
 const App = () => {
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    const cartItems = JSON.parse(localStorage.getItem("cartItems"));
+    if (userInfo && cartItems !== null) {
+      cartItems.map((item) =>
+        axios("http://localhost:5000/api/cart", {
+          method: "POST",
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + userInfo.token,
+          },
+          data: {
+            prodId: item._id,
+            quantity: item.quantity,
+          },
+        })
+      );
+      localStorage.removeItem("cartItems");
+    }
+  }, [userInfo]);
+
   return (
     <div>
       <Header />

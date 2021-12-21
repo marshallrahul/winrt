@@ -26,14 +26,8 @@ module.exports = {
     };
   },
 
-  addToCart: async function ({ id, quantity }) {
-    // if (req.isAuth) {
-    const product = await Product.findById(id);
-    const user = await User.findOne({ _id: req.userId });
-    let newQuantity = quantity || 1;
-    user.cart.items.push({ productData: product._id, quantity: newQuantity });
-    await user.save();
-    // }
+  addToCart: async function (req) {
+    console.log(req);
   },
 
   createUser: async function ({ inputData }) {

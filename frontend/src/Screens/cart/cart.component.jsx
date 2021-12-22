@@ -96,83 +96,90 @@ const CartScreen = () => {
 
   return (
     <Box>
-      <Wrapper>
-        <div>
-          <Thead>
-            <div>Item</div>
-            <QTY>QTY</QTY>
-            <Prc>Price</Prc>
-          </Thead>
-          {cartItem.length > 0
-            ? cartItem.map((product) => (
-                <TableContainer key={product.productData._id}>
-                  <ItemContainer>
-                    <ImageContainer
-                      src={product.productData.image}
-                      alt={product.productData.name}
-                    />
-                    <div>
-                      <Title>{product.productData.name}</Title>
-                      <Description>
-                        {product.productData.description.length > 80 &&
-                          `${product.productData.description.substr(1, 80)}...`}
-                      </Description>
-                      <RatingBox>
-                        <RatingNum>
-                          {parseFloat(product.productData.rating)}
-                        </RatingNum>
-                        <Rating value={product.productData.rating} />
-                      </RatingBox>
-                    </div>
-                  </ItemContainer>
-                  <Quantity>
-                    <NumberInput
-                      size="lg"
-                      maxW={32}
-                      defaultValue={product.quantity}
-                      min={1}
-                      max={product.productData.countInStock}
-                      onChange={(val) => {
-                        handleChange(Number(val), product.productData._id);
-                        setTimeout(() => {
-                          window.location.reload();
-                        }, 100);
-                      }}
-                    >
-                      <NumberInputField />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper />
-                        <NumberDecrementStepper />
-                      </NumberInputStepper>
-                    </NumberInput>
-                  </Quantity>
-                  <RemoveText>Remove</RemoveText>
-                  <Price>
-                    {" "}
-                    <NumberFormat
-                      value={product.productData.price}
-                      displayType={"text"}
-                      thousandSeparator={true}
-                      prefix={"₹"}
-                    />
-                  </Price>
-                </TableContainer>
-              ))
-            : null}
-        </div>
-        <CheckoutContainer>
-          <Text>Total:</Text>
-          <TotalPrice>
-            <NumberFormat
-              value={totalPrice}
-              displayType={"text"}
-              thousandSeparator={true}
-              prefix={"₹"}
-            />
-          </TotalPrice>
-          <CustomButton checkout>CHECKOUT</CustomButton>
-        </CheckoutContainer>
-      </Wrapper>
+      {cartItem.length > 0 ? (
+        <Wrapper>
+          <div>
+            <Thead>
+              <div>Item</div>
+              <QTY>QTY</QTY>
+              <Prc>Price</Prc>
+            </Thead>
+            {cartItem.length > 0
+              ? cartItem.map((product) => (
+                  <TableContainer key={product.productData._id}>
+                    <ItemContainer>
+                      <ImageContainer
+                        src={product.productData.image}
+                        alt={product.productData.name}
+                      />
+                      <div>
+                        <Title>{product.productData.name}</Title>
+                        <Description>
+                          {product.productData.description.length > 80 &&
+                            `${product.productData.description.substr(
+                              1,
+                              80
+                            )}...`}
+                        </Description>
+                        <RatingBox>
+                          <RatingNum>
+                            {parseFloat(product.productData.rating)}
+                          </RatingNum>
+                          <Rating value={product.productData.rating} />
+                        </RatingBox>
+                      </div>
+                    </ItemContainer>
+                    <Quantity>
+                      <NumberInput
+                        size="lg"
+                        maxW={32}
+                        defaultValue={product.quantity}
+                        min={1}
+                        max={product.productData.countInStock}
+                        onChange={(val) => {
+                          handleChange(Number(val), product.productData._id);
+                          setTimeout(() => {
+                            window.location.reload();
+                          }, 100);
+                        }}
+                      >
+                        <NumberInputField />
+                        <NumberInputStepper>
+                          <NumberIncrementStepper />
+                          <NumberDecrementStepper />
+                        </NumberInputStepper>
+                      </NumberInput>
+                    </Quantity>
+                    <RemoveText>Remove</RemoveText>
+                    <Price>
+                      {" "}
+                      <NumberFormat
+                        value={product.productData.price}
+                        displayType={"text"}
+                        thousandSeparator={true}
+                        prefix={"₹"}
+                      />
+                    </Price>
+                  </TableContainer>
+                ))
+              : null}
+          </div>
+          <CheckoutContainer>
+            <Text>Total:</Text>
+            <TotalPrice>
+              <NumberFormat
+                value={totalPrice}
+                displayType={"text"}
+                thousandSeparator={true}
+                prefix={"₹"}
+              />
+            </TotalPrice>
+            <CustomButton checkout>CHECKOUT</CustomButton>
+          </CheckoutContainer>
+        </Wrapper>
+      ) : (
+        "Your Cart is empty"
+      )}
     </Box>
   );
 };

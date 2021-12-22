@@ -19,7 +19,7 @@ const App = () => {
   useEffect(() => {
     const cartItems = JSON.parse(localStorage.getItem("cartItems"));
     if (userInfo && cartItems !== null) {
-      cartItems.map((item) =>
+      cartItems.map((prod) =>
         axios("http://localhost:5000/api/cart", {
           method: "POST",
           withCredentials: true,
@@ -28,8 +28,8 @@ const App = () => {
             Authorization: "Bearer " + userInfo.token,
           },
           data: {
-            prodId: item._id,
-            quantity: item.quantity,
+            prodId: prod.productData._id,
+            quantity: prod.quantity,
           },
         })
       );

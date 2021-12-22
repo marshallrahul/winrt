@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useSelector } from "react-redux";
 import NumberFormat from "react-number-format";
 import Rating from "../../components/rating/rating.component";
@@ -30,29 +31,25 @@ import {
   QTY,
   Prc,
 } from "./cart.style";
-import axios from "axios";
 
 const CartScreen = () => {
-  const [cartItemsDB, setCartItemsDB] = useState([]);
+  const [cartItem, setCartItem] = useState([]);
   const cart = useSelector((state) => state.cart);
   const userLogin = useSelector((state) => state.userLogin);
   const { cartItems } = cart;
   const { userInfo } = userLogin;
-  const totalPrice = cartItems.reduce(
-    (previousValue, currentValue) =>
-      previousValue + currentValue.price * currentValue.quantity,
-    0
-  );
-  console.log(cartItemsDB);
 
-  const totalPriceFromDB = cartItemsDB.reduce(
+  // Total price
+  const totalPrice = cartItem.reduce(
     (previousValue, currentValue) =>
       previousValue + currentValue.productData.price * currentValue.quantity,
     0
   );
 
+  //TODO: Update UI
   const handleChange = async (value, prodId) => {
-    if (cartItemsDB.length > 0) {
+    // Store data to DB
+    if (userInfo) {
       await axios("http://localhost:5000/api/cart", {
         method: "POST",
         withCredentials: true,
@@ -65,17 +62,20 @@ const CartScreen = () => {
           quantity: value,
         },
       });
+      // Store data to localStorage
     } else {
       const items = JSON.parse(localStorage.getItem("cartItems"));
-      const productIdx = items.findIndex((prod) => prod._id === prodId);
+      const productIdx = items.findIndex(
+        (prod) => prod.productData._id === prodId
+      );
       items[productIdx].quantity = value;
       localStorage.removeItem("cartItems");
       localStorage.setItem("cartItems", JSON.stringify(items));
-      window.location.reload();
     }
   };
 
   useEffect(() => {
+    // Get data from DB
     const getCarts = async () => {
       if (userInfo) {
         const { data } = await axios("http://localhost:5000/api/cart", {
@@ -86,11 +86,13 @@ const CartScreen = () => {
             Authorization: "Bearer " + userInfo.token,
           },
         });
-        setCartItemsDB(data);
+        setCartItem(data);
+      } else {
+        setCartItem(cartItems);
       }
     };
     getCarts();
-  }, [userInfo]);
+  }, [userInfo, cartItems]);
 
   return (
     <Box>
@@ -101,9 +103,9 @@ const CartScreen = () => {
             <QTY>QTY</QTY>
             <Prc>Price</Prc>
           </Thead>
-          {cartItemsDB.length > 0
-            ? cartItemsDB.map((product) => (
-                <TableContainer key={product._id}>
+          {cartItem.length > 0
+            ? cartItem.map((product) => (
+                <TableContainer key={product.productData._id}>
                   <ItemContainer>
                     <ImageContainer
                       src={product.productData.image}
@@ -130,9 +132,12 @@ const CartScreen = () => {
                       defaultValue={product.quantity}
                       min={1}
                       max={product.productData.countInStock}
-                      onChange={(val) =>
-                        handleChange(Number(val), product.productData._id)
-                      }
+                      onChange={(val) => {
+                        handleChange(Number(val), product.productData._id);
+                        setTimeout(() => {
+                          window.location.reload();
+                        }, 100);
+                      }}
                     >
                       <NumberInputField />
                       <NumberInputStepper>
@@ -153,56 +158,13 @@ const CartScreen = () => {
                   </Price>
                 </TableContainer>
               ))
-            : cartItems.map((product) => (
-                <TableContainer key={product._id}>
-                  <ItemContainer>
-                    <ImageContainer src={product.image} alt={product.name} />
-                    <div>
-                      <Title>{product.name}</Title>
-                      <Description>
-                        {product.description.length > 80 &&
-                          `${product.description.substr(1, 80)}...`}
-                      </Description>
-                      <RatingBox>
-                        <RatingNum>{parseFloat(product.rating)}</RatingNum>
-                        <Rating value={product.rating} />
-                      </RatingBox>
-                    </div>
-                  </ItemContainer>
-                  <Quantity>
-                    <NumberInput
-                      size="lg"
-                      maxW={32}
-                      defaultValue={product.quantity}
-                      min={1}
-                      max={product.countInStock}
-                      onChange={(val) => handleChange(Number(val), product._id)}
-                    >
-                      <NumberInputField />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper />
-                        <NumberDecrementStepper />
-                      </NumberInputStepper>
-                    </NumberInput>
-                  </Quantity>
-                  <RemoveText>Remove</RemoveText>
-                  <Price>
-                    {" "}
-                    <NumberFormat
-                      value={product.price}
-                      displayType={"text"}
-                      thousandSeparator={true}
-                      prefix={"₹"}
-                    />
-                  </Price>
-                </TableContainer>
-              ))}
+            : null}
         </div>
         <CheckoutContainer>
           <Text>Total:</Text>
           <TotalPrice>
             <NumberFormat
-              value={cartItemsDB.length > 0 ? totalPriceFromDB : totalPrice}
+              value={totalPrice}
               displayType={"text"}
               thousandSeparator={true}
               prefix={"₹"}

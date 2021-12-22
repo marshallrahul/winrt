@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import CustomButton from "../../components/custom-button/custom-button.component";
 import Rating from "../../components/rating/rating.component";
 import Loader from "../../components/loader/loader.component";
@@ -18,9 +19,10 @@ import {
   SaveContainer,
   Box,
 } from "./product.style";
-import axios from "axios";
 
 const Product = () => {
+  const navigate = useNavigate();
+
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const params = useParams();
@@ -78,7 +80,13 @@ const Product = () => {
           <option value="3">3</option>
         </Select>
         <Box>
-          <CustomButton onClick={() => cartHandler(product)} prod>
+          <CustomButton
+            onClick={() => {
+              cartHandler(product);
+              navigate("/cart");
+            }}
+            prod
+          >
             Add To Cart
           </CustomButton>
           <SaveContainer>

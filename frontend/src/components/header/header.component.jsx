@@ -28,8 +28,8 @@ const Header = () => {
   const { loading, userInfo } = userLogin;
 
   const logoutHandler = () => {
-    navigate("/signin");
     dispatch(logout());
+    navigate("/signin");
   };
 
   if (loading) return <Loader />;
@@ -78,7 +78,9 @@ const Header = () => {
               <NavLinks to="/" className="user__name">
                 {userInfo.name}
               </NavLinks>
-              <LogoutContainer onClick={logoutHandler}>Logout</LogoutContainer>
+              <LogoutContainer onClick={() => logoutHandler()}>
+                Logout
+              </LogoutContainer>
             </>
           ) : (
             <NavLinks to="/signin" className="nav__links nav__links--login">

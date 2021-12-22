@@ -1,8 +1,8 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import UserActionTypes from "../../redux/user/user.types";
 import Loader from "../loader/loader.component";
+import { logout } from "../../redux/user/user.action";
 import { SubMenuContainer, SubMenuItems } from "./sub-menu.style";
 
 const Submenu = () => {
@@ -10,6 +10,11 @@ const Submenu = () => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, userInfo } = userLogin;
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    navigate("/signin");
+  };
 
   return (
     <div>
@@ -32,7 +37,7 @@ const Submenu = () => {
         {userInfo ? (
           <SubMenuItems
             onClick={() => {
-              dispatch({ type: UserActionTypes.USER_LOGOUT });
+              logoutHandler();
             }}
           >
             Logout
